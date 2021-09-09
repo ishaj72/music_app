@@ -31,8 +31,9 @@ class HomePage extends StatelessWidget {
           new SizedBox(
             width: 120.0,
             height: 50.0,
-            child: new RaisedButton(
-              child: new Text('Login',
+            // ignore: deprecated_member_use
+            child: RaisedButton(
+              child:  Text('Login',
                 style:TextStyle(
                   color: Colors.grey[600],
                   fontSize: 20,
@@ -52,8 +53,8 @@ class HomePage extends StatelessWidget {
           new SizedBox(
             width: 120.0,
             height: 50.0,
-            child: new RaisedButton(
-              child: new Text('Sign Up',
+            child: RaisedButton(
+              child: Text('Sign Up',
                 style:TextStyle(
                   color: Colors.grey[600],
                   fontSize: 20,

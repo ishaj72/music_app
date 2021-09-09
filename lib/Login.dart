@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
       if (user != null) {
         print(user);
 
-        Navigator.pushReplacementNamed(context, "/");
+        Navigator.pushReplacementNamed(context, "Forgot");
       }
     });
   }
@@ -105,8 +105,80 @@ class _LoginState extends State<Login> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        inputFile(label: "Email",onSave: _email),
-                        inputFile(label: "Password",obsCureText: true,onSave: _password),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Email",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 5,),
+                            TextFormField(
+                              validator: (input) {
+                                if (input!.isEmpty) {
+                                  return "Enter Email";
+                                }
+                              },
+                              onSaved: (input) => _email = input!,
+                              //obscureText: obsCureText,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 0
+                                    , horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white,),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10,)
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Password",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 5,),
+                            TextFormField(
+                              validator: (input) {
+                                if (input!.length<6) {
+                                  return "Enter Password";
+                                }
+                              },
+                              onSaved: (input) => _password = input!,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 0
+                                    , horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white,),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10,)
+                          ],
+                        ),
+                        //inputFile(label: "Email",onSave: _email),
+                        //inputFile(label: "Password",obsCureText: true,onSave: _password),
                       ],
                     ),
                   ),
@@ -170,43 +242,43 @@ class _LoginState extends State<Login> {
   }
 }
 
-Widget inputFile({label,obsCureText = false,onSave})
-{
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w800,
-          color: Colors.white,
-        ),
-      ),
-      SizedBox(height: 5,),
-      TextFormField(
-        validator: (input)
-        {
-          if(input!.isEmpty){
-            return "Enter $label";
-          }
-        },
-        onSaved: (input)=>onSave=input!,
-        obscureText: obsCureText,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0
-              ,horizontal: 10),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white,),
-          ),
-        ),
-      ),
-      SizedBox(height: 10,)
-    ],
-  );
-}
+// Widget inputFile({label,obsCureText = false,onSave})
+// {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: <Widget>[
+//       Text(
+//         label,
+//         style: TextStyle(
+//           fontSize: 15,
+//           fontWeight: FontWeight.w800,
+//           color: Colors.white,
+//         ),
+//       ),
+//       SizedBox(height: 5,),
+//       TextFormField(
+//         validator: (input)
+//         {
+//           if(input!.isEmpty){
+//             return "Enter $label";
+//           }
+//         },
+//         onSaved: (input)=>onSave=input!,
+//         obscureText: obsCureText,
+//         decoration: InputDecoration(
+//           contentPadding: EdgeInsets.symmetric(vertical: 0
+//               ,horizontal: 10),
+//           enabledBorder: OutlineInputBorder(
+//             borderSide: BorderSide(
+//               color: Colors.white,
+//             ),
+//           ),
+//           border: OutlineInputBorder(
+//             borderSide: BorderSide(color: Colors.white,),
+//           ),
+//         ),
+//       ),
+//       SizedBox(height: 10,)
+//     ],
+//   );
+// }

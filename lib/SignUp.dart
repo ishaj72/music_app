@@ -124,10 +124,155 @@ class _SignUpState extends State<SignUp> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    inputFile(label: "Username",onSave: _name),
-                    inputFile(label:"Email",onSave: _email),
-                    inputFile(label: "Password",obsCureText: true,onSave: _password),
-                    inputFile(label: "Confirm Password",obsCureText: true,onSave: check),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Username",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        TextFormField(
+                          validator: (input) {
+                            if (input!.isEmpty) {
+                              return "Enter Username";
+                            }
+                          },
+                          onSaved: (input) => _name = input!,
+                          //obscureText: obsCureText,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 0
+                                , horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,)
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Email",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        TextFormField(
+                          validator: (input) {
+                            if (input!.isEmpty) {
+                              return "Enter Email";
+                            }
+                          },
+                          onSaved: (input) => _email = input!,
+                          //obscureText: obsCureText,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 0
+                                , horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,)
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Password",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        TextFormField(
+                          validator: (input) {
+                            if (input!.length<6) {
+                              return "Enter password";
+                            }
+                          },
+                          onSaved: (input) => _password = input!,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 0
+                                , horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,)
+                      ],
+                    ),
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Confirm Password",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        TextFormField(
+                          validator: (input) {
+                            if (input!.length<6) {
+                              return "Enter password";
+                            }
+                          },
+                          onSaved: (input) => check = input!,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 0
+                                , horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white,),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,)
+                      ],
+                    )
+                    // inputFile(label: "Username",onSave: _name),
+                    // inputFile(label:"Email",onSave: _email),
+                    // inputFile(label: "Password",obsCureText: true,onSave: _password),
+                    // inputFile(label: "Confirm Password",obsCureText: true,onSave: check),
                   ],
                 ),
               ),
@@ -143,7 +288,7 @@ class _SignUpState extends State<SignUp> {
                     )
                 ),
                 child: MaterialButton(
-                  onPressed: () {} ,
+                  onPressed:signUp ,
                   minWidth: double.infinity,
                   height: 50,
                   color: Colors.red,
@@ -183,7 +328,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
 Widget inputFile({label,obsCureText = false,onSave}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

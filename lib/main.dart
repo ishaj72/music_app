@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rhythmic/ForgetPassword.dart';
 import 'package:rhythmic/Login.dart';
 import 'package:rhythmic/SignUp.dart';
 import 'package:rhythmic/SplashScreen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         "homePage":(BuildContext context)=>HomePage(),
         "Login":(BuildContext context)=>Login(),
         "SignUp":(BuildContext context)=>SignUp(),
+        "Forgot":(BuildContext context)=>ForgetPassword(),
       },
     );
   }
