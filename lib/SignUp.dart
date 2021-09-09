@@ -1,8 +1,80 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rhythmic/Login.dart';
+import 'package:string_validator/string_validator.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   //const SignUp({Key? key}) : super(key: key);
+
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  var _name, _email, _password,check;
+
+  checkAuthentication() async {
+    _auth.authStateChanges().listen((user) async {
+      if (user != null) {
+        Navigator.pushReplacementNamed(context, "/");
+      }
+    });
+  }
+
+  void signUp() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      print("${check} and ${_password}");
+      if(equals(check,_password)){
+        try {
+          UserCredential user = await _auth.createUserWithEmailAndPassword(
+              email: _email, password: _password);
+          if (user != null) {
+            // UserUpdateInfo updateuser = UserUpdateInfo();
+            // updateuser.displayName = _name;
+            //  user.updateProfile(updateuser);
+            await _auth.currentUser!.updateProfile(displayName: _name);
+            // await Navigator.pushReplacementNamed(context,"/") ;
+
+          }
+        } catch (e) {
+          showError(e.toString(),"error");
+          print(e);
+        }
+      }
+      else{
+        showError("Password unmatched", "Incorrect");
+      }
+    }
+  }
+  showError(String errormessage,String val) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('${val}'),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+            content: Text(errormessage),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'))
+            ],
+          );
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuthentication();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +120,16 @@ class SignUp extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  inputFile(label: "Username"),
-                  inputFile(label:"Email"),
-                  inputFile(label: "Password",obsCureText: true),
-                  inputFile(label: "Confirm Password",obsCureText: true),
-                ],
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    inputFile(label: "Username",onSave: _name),
+                    inputFile(label:"Email",onSave: _email),
+                    inputFile(label: "Password",obsCureText: true,onSave: _password),
+                    inputFile(label: "Confirm Password",obsCureText: true,onSave: check),
+                  ],
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 0,left: 0,),
@@ -85,7 +160,6 @@ class SignUp extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -110,8 +184,7 @@ class SignUp extends StatelessWidget {
   }
 }
 
-Widget inputFile({label,obsCureText = false})
-{
+Widget inputFile({label,obsCureText = false,onSave}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -124,11 +197,17 @@ Widget inputFile({label,obsCureText = false})
         ),
       ),
       SizedBox(height: 5,),
-      TextField(
+      TextFormField(
+        validator: (input) {
+          if (input!.isEmpty) {
+            return "Enter $label";
+          }
+        },
+        onSaved: (input) => onSave = input!,
         obscureText: obsCureText,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0
-              ,horizontal: 10),
+              , horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.white,

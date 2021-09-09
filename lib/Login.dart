@@ -1,8 +1,64 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   //const Login({Key? key}) : super(key: key);
 
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  var _email, _password;
+  checkAuthentification() async {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        print(user);
+
+        Navigator.pushReplacementNamed(context, "/");
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuthentification();
+  }
+
+  login() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+
+      try {
+        await _auth.signInWithEmailAndPassword(
+            email: _email, password: _password);
+      } catch (e) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('ERROR'),
+                content: Text(e.toString()),
+                actions: <Widget>[
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('OK'))
+                ],
+              );
+            });
+        print(e);
+      }
+    }
+    else {
+      print("hello");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +101,14 @@ class Login extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40,),
-                  child: Column(
-                    children: <Widget>[
-                      inputFile(label: "Email"),
-                      inputFile(label: "Password",obsCureText: true),
-                    ],
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        inputFile(label: "Email",onSave: _email),
+                        inputFile(label: "Password",obsCureText: true,onSave: _password),
+                      ],
+                    ),
                   ),
                 ),
                  Padding(padding:
@@ -66,7 +125,9 @@ class Login extends StatelessWidget {
                      )
                    ),
                    child: MaterialButton(
-                     onPressed: () {} ,
+                     onPressed: () {
+                       login();
+                     } ,
                      minWidth: double.infinity,
                      height: 50,
                      color: Colors.red,
@@ -107,10 +168,9 @@ class Login extends StatelessWidget {
       ),
     );
   }
-
 }
 
-Widget inputFile({label,obsCureText = false})
+Widget inputFile({label,obsCureText = false,onSave})
 {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +184,14 @@ Widget inputFile({label,obsCureText = false})
         ),
       ),
       SizedBox(height: 5,),
-      TextField(
+      TextFormField(
+        validator: (input)
+        {
+          if(input!.isEmpty){
+            return "Enter $label";
+          }
+        },
+        onSaved: (input)=>onSave=input!,
         obscureText: obsCureText,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0

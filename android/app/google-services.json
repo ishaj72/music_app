@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "385129568856",
+    "project_id": "rhythmic-918b4",
+    "storage_bucket": "rhythmic-918b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385129568856:android:9e7f1b72625d69aaffc82d",
+        "android_client_info": {
+          "package_name": "com.example.rhythmic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385129568856-0d66fl1tv0n47sjeph08alk4oiiqct01.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rhythmic",
+            "certificate_hash": "9f5d76fb67b8242ea14f0e1d3ebe1af878c68266"
+          }
+        },
+        {
+          "client_id": "385129568856-h15r0cgmpm8ec8v1r66qnbestj9quvdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASFDDp6c3czH6UXiLCPV6J7daCadqyX7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385129568856-h15r0cgmpm8ec8v1r66qnbestj9quvdv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
