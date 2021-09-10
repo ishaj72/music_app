@@ -99,9 +99,8 @@ class _SignUpState extends State<SignUp> {
           height: MediaQuery.of(context).size.height - 50,
           width: double.infinity,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[Column(
                 children: <Widget>[
                   Text("SignUp",
                   style: TextStyle(

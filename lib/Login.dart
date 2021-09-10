@@ -177,6 +177,22 @@ class _LoginState extends State<Login> {
                             SizedBox(height: 10,)
                           ],
                         ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:<Widget> [
+                            TextButton(onPressed: (){
+                              Navigator.pushReplacementNamed(context, "ForgetPassword");
+                            },
+                                child: Text("Forget Password?",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                ),
+                            ),
+                            ),
+                          ],
+                         ),
                         //inputFile(label: "Email",onSave: _email),
                         //inputFile(label: "Password",obsCureText: true,onSave: _password),
                       ],
