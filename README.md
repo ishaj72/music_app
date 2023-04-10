@@ -1,4 +1,4 @@
-# rhythmic
+# RHYTHMIC
 
 A  music streaming app
 
